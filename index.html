@@ -91,7 +91,12 @@
       </button>
       <div id="letter" class="bg-white p-10 rounded-lg shadow-lg hidden letter">
         <h1 class="sm:text-4xl text-2xl font-bold mb-4">
-          🎉 Happy 18th Birthday! 🎉
+          🎉
+          <span
+            id="hbd"
+            class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+          ></span>
+          🎉
         </h1>
         <div class="flex justify-center container mx-auto">
           <img
@@ -102,7 +107,14 @@
           />
         </div>
         <p class="text-xl mb-6">
-          Dear <span id="recipient-span" class="font-bold"></span>,
+          Dear
+          <a
+            href="https://instagram.com/sndiamlni_"
+            target="_blank"
+            id="recipient-span"
+            class="font-bold text-2xl bg-gradient-to-r from-red-500 via-blue-500 to-green-500 bg-clip-text text-transparent"
+          ></a
+          >,
         </p>
         <p class="text-lg leading-loose">
           Wishing you a day filled with joy, and all your favorite things! May
@@ -111,7 +123,14 @@
         </p>
         <p class="text-lg leading-loose mt-4">Best wishes,</p>
         <p class="text-lg leading-loose font-bold">
-          🤡 <span id="your-span"></span> 🤡
+          🤡
+          <a
+            id="your-span"
+            href="https://instagram.com/rafi.amd16"
+            target="_blank"
+            class="bg-gradient-to-r from-red-500 via-purple-500 to-yellow-500 bg-clip-text text-transparent"
+          ></a>
+          🤡
         </p>
       </div>
       <div id="balloons" class="flex justify-center mt-10"></div>
@@ -120,6 +139,90 @@
         src="https://www.myinstants.com/media/sounds/happy_birthday.mp3"
       ></audio>
     </div>
-    <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+    <script>
+      let typed = new Typed("#hbd", {
+        strings: ["Happy 18th Birthday", "Sandia Melani"],
+        typeSpeed: 75,
+        loop: true,
+      });
+
+      document
+        .getElementById("open-letter")
+        .addEventListener("click", function () {
+          const yourName = document
+            .getElementById("your-name")
+            .value.trim()
+            .toLowerCase();
+          const recipientName = document
+            .getElementById("recipient-name")
+            .value.trim()
+            .toLowerCase();
+
+          if (yourName !== "rafi ahmad" || recipientName !== "sandia melani") {
+            alert("Nama Pembuat atau Nama Penerima Salah!!! 😡😡😡");
+            return;
+          } else if (yourName == "" || recipientName == "") {
+            alert("Jangan kosongin kocak!!");
+            return;
+          }
+
+          document.getElementById("recipient-span").innerText = recipientName;
+          document.getElementById("your-span").innerText = yourName;
+
+          document.getElementById("letter").classList.remove("hidden");
+          document.getElementById("letter").classList.add("fade-in");
+
+          document.getElementById("birthday-song").play();
+
+          launchConfetti();
+
+          const balloons = document.querySelectorAll(".balloon");
+          balloons.forEach((balloon) => {
+            balloon.addEventListener("click", () => {
+              balloon.style.animation = "floatUp 2s forwards";
+            });
+          });
+        });
+
+      const balloonContainer = document.getElementById("balloons");
+      for (let i = 0; i < 10; i++) {
+        const balloon = document.createElement("div");
+        balloon.classList.add(
+          "balloon",
+          "bg-red-400",
+          "rounded-full",
+          "h-16",
+          "w-16",
+          "mx-2",
+          "mt-6",
+          "cursor-pointer"
+        );
+        balloonContainer.appendChild(balloon);
+      }
+
+      function launchConfetti() {
+        for (let i = 0; i < 100; i++) {
+          const confetti = document.createElement("div");
+          confetti.classList.add(
+            "confetti",
+            "w-2",
+            "h-2",
+            "bg-pink-500",
+            "absolute"
+          );
+          confetti.style.left = `${Math.random() * 100}vw`;
+          confetti.style.animation = `fall ${
+            Math.random() * 3 + 2
+          }s linear forwards`;
+          document.body.appendChild(confetti);
+
+          setTimeout(() => {
+            confetti.remove();
+          }, 5000);
+        }
+      }
+    </script>
   </body>
 </html>
